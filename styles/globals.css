@@ -82,13 +82,9 @@
     position: relative;
     width: 20px;
     color: white;
-  } */
+  } 
 
 
-.navmain{
-background-color: #EEF4FA !important;
-
-}
 
 .backcontainer {
 background-color: #EEF4FA;
@@ -779,7 +775,7 @@ align-items: center;
 }
 
 .modelimage{
-background-image: url("/backimage.png");
+/* background-image: url("/backimage.png"); */
 alt:"image";
 height: 80px;
 width: 80px;
@@ -813,15 +809,20 @@ text-decoration: none;
 color: #ffffff;
 }
 .logoimage12{
-background-image: url("/logo.png");
+/* background-image: url("/logo.png"); */
 height: 48px;
 width: 240px;
 background-size: cover;
 }
+.logoimagepic{
+  z-index: 2;
+  position: relative;
+}
 
 .circularcontainer1 {
-
-margin-left: 27px;
+position: absolute;
+margin-left: 20px;
+z-index: 1;
 width: 10px;
 height: 10px;
 background-color: #165DD7; /* Blue color for the container */

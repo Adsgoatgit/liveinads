@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React,{useState} from 'react';
 import Link from 'next/link';
 import Modal from 'react-modal';
+import moment from "moment-timezone";
 // import Conatct from '../contact/page';
 
 
@@ -19,6 +20,9 @@ const modalStyles = {
     padding: '20px',
   },
 };
+
+const today =moment()
+
 
 export default function Contact4(props){
   // console.log("heyyy",props.lastSelectedValue)
@@ -87,7 +91,6 @@ export default function Contact4(props){
       
     };
     const openModal = async () => {
-      // Check if any field is null or empty
       if (
         !nameValue ||
         !emailValue ||
@@ -96,12 +99,19 @@ export default function Contact4(props){
         !companyValue ||
         !numberValue
       ) {
-        // Handle the case where any field is null or empty
-        alert('Please enter all fields.'); // You can replace this with your preferred error handling
-        return;
+        alert('Please enter all fields');
+        return; 
       }
     
-      // All fields are filled, proceed to set postData and open modal
+      const isValidName = /^[A-Za-z\s.]+$/.test(nameValue); // Check if nameValue contains only alphabetic characters
+      const isValidNumber = /^\d{10}$/.test(numberValue); // Check if numberValue is a string with exactly 10 numeric characters
+      const isValidDate = moment(dateValue, "DD-MM-YYYY").isAfter(today);
+    
+      if (!isValidName || !isValidNumber) {
+        alert('Invalid data. Please check your inputs.');
+        return; 
+      }
+    
       setpostData({
         name: nameValue,
         email: emailValue,
@@ -110,9 +120,10 @@ export default function Contact4(props){
         Company: companyValue,
         PhoneNumber: numberValue,
       });
-    
       setModalIsOpen(true);
     };
+    
+    
     
     return(
         <div>
@@ -147,29 +158,29 @@ export default function Contact4(props){
     </div>
     <div className='contactmain'>
         <h5 className='contacthead'>Brief</h5>
-        <h2 className='contactmainhead'>Now please fill this questionnaire about your project. It's like a Buzzed quiz</h2>
+        <h2 className='contactmainhead'>Now please fill this questionnaire about your project. It<sup>'</sup>s like a Buzzed quiz</h2>
         <div className='inputdiv'>
             <div  className='fullinputdiv'>
                 <div className='fulldiv'>
                     <h6 className='fullname'>Full Name*</h6>
-                    <input type='text' placeholder='Enter Your FullName....' className='inputname' id="name" value={nameValue}
+                    <input type='text' placeholder='Enter Your Full Name....' className='inputname' id="name" value={nameValue}
             onChange={(e) => setnameValue(e.target.value)}/>
                 </div>
                 <div >
                     <h6 className='fullname'>Email Address*</h6>
-                    <input type='email' placeholder='test@gmail.com' className='inputname' id="" value={emailValue}
+                    <input type='email' placeholder='enter your email..' className='inputname' id="" value={emailValue}
             onChange={(e) => setemailValue(e.target.value)}/>
                 </div>
             </div>
             <div  className='fullinputdiv'>
                 <div className='fulldiv'>
                     <h6 className='fullname'>Phone Number *</h6>
-                    <input type='text' placeholder='+91 45678 990' className='inputname' id="number" value={numberValue}
+                    <input type="number" placeholder='Enter your number...' className='inputname' id="number" value={numberValue}
             onChange={(e) => setnumberValue(e.target.value)}/>
                 </div>
                 <div >
                     <h6 className='fullname'>Company Name *</h6>
-                    <input type='email' placeholder='Slogdigital' className='inputname' id="company" value={companyValue}
+                    <input type='text' placeholder='company name...' className='inputname' id="company" value={companyValue}
             onChange={(e) => setcompanyValue(e.target.value)}/>
                 </div>
             </div>

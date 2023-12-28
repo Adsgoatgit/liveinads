@@ -40,6 +40,7 @@ export default function Home() {
 
          <div className="logoimage12">
              <div className="circularcontainer1"></div>
+             <Image src="/logo.png" height={40} width={180} alt="image" className='logoimagepic'/>
          </div>
          </div>)}
 <div className='data'>
@@ -287,7 +288,7 @@ export default function Home() {
       </div>
 <div className='lastdiv'>
   <h1 className='lasthead'>
-  Let's create a measurable impact on your business.
+  Let<sup>'</sup>s create a measurable impact on your business.
   </h1>
   <button className='lastbutton'><Link  href="/contact" style={{textDecoration:"none"}}>Design a Quote  <Image src="/quitarrow.png" height={22} width={25}  alt='image'/></Link></button>
 </div>

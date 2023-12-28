@@ -7,7 +7,7 @@ export default  function Handler(req, res) {
     console.log(postData.name)
  if (!(postData.name) && !(postData.email) && !(postData.company)){
     try {
-       const uri = 'mongodb+srv://rakesh:185d1a0151@project.phg7vjo.mongodb.net/Project?retryWrites=true&w=majority';
+      //  const uri = 'mongodb+srv://rakesh:185d1a0151@project.phg7vjo.mongodb.net/Project?retryWrites=true&w=majority';
       var client = new MongoClient(uri);
        client.connect();
       const result =  client.db('TestData').collection('test').insertOne( postData );
