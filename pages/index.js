@@ -40,6 +40,7 @@ export default function Home() {
 
          <div className="logoimage12">
              <div className="circularcontainer1"></div>
+    <Image src="/photo2.png" className='image1' width={200} height={200} alt='image'/>
          </div>
          </div>)}
 <div className='data'>
