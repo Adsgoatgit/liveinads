@@ -302,3 +302,14 @@ export default function Home() {
     </div>
   )
 }
+
+{/* <button className='lastbutton'><Link  href="/contact" style={{textDecoration:"none"}}>Design a Quote  <Image src="/quitarrow.png" height={22} width={25}  alt='image'/></Link></button>
+</div>
+<div className='footer'>
+  <h6 className='footerhead'>
+  Address - AdsGoat Pvt Ltd, 2nd Floor, RAM SVR Building, HUDA Tech Enclave, Hitech City, Hyderabad - 500081
+  </h6>
+  <p className='footerhead'>Contact - 98490278087</p>
+</div>
+    </div>
+    </div> */}

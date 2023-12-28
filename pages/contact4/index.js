@@ -54,42 +54,49 @@ export default function Contact4(props){
 
     
  
-    const closeModal = async() => {
+    const closeModal = async () => {
       setModalIsOpen(false);
+    
       try {
-        
         if (!postData) {
-          
           throw new Error('postData is not defined');
         }
     
-        const response = await fetch('/api/data', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ postData }),
-        });
+        try {
+          const response = await fetch('/api/data', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ postData }),
+          });
     
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+    
+          const result = await response.json();
+          console.log(result);
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
+        // console.log(result);
     
-        const result = await response.json();
-        console.log(result);
-        
+        // Clear input fields after successful submission
+        setnameValue("");
+        setemailValue("");
+        setdateValue("");
+        setdiscriptionValue("");
+        setcompanyValue("");
+        setnumberValue("");
+        setpostData("");
+    
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
-      setnameValue("")
-      setemailValue("")
-      setdateValue("")
-      setdiscriptionValue("")
-      setcompanyValue("")
-      setnumberValue("")
-      setpostData("")
-      
     };
+
+    
     const openModal = async () => {
       if (
         !nameValue ||
@@ -105,7 +112,7 @@ export default function Contact4(props){
     
       const isValidName = /^[A-Za-z\s.]+$/.test(nameValue); // Check if nameValue contains only alphabetic characters
       const isValidNumber = /^\d{10}$/.test(numberValue); // Check if numberValue is a string with exactly 10 numeric characters
-      const isValidDate = moment(dateValue, "DD-MM-YYYY").isAfter(today);
+      // const isValidDate = moment(dateValue, "DD-MM-YYYY").isAfter(today);
     
       if (!isValidName || !isValidNumber) {
         alert('Invalid data. Please check your inputs.');
