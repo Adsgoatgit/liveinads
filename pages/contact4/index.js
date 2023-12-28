@@ -147,7 +147,7 @@ export default function Contact4(props){
     </div>
     <div className='contactmain'>
         <h5 className='contacthead'>Brief</h5>
-        <h2 className='contactmainhead'>Now please fill this questionnaire about your project. It's like a Buzzed quiz</h2>
+        <h2 className='contactmainhead'>Now please fill this questionnaire about your project. It s like a Buzzed quiz</h2>
         <div className='inputdiv'>
             <div  className='fullinputdiv'>
                 <div className='fulldiv'>
@@ -209,7 +209,7 @@ export default function Contact4(props){
         </div>
         <div className='modeltext'>
         <h2 className='modelhead'>Thank You</h2>
-        <p className='modelpara'>Your details has been successfully submitted. We'll be in touch with you shortly.</p>
+        <p className='modelpara'>Your details has been successfully submitted. We ll be in touch with you shortly.</p>
         </div>
        
         <button onClick={closeModal} className='button contactnavbutton' ><Link className='continue' href="/">Save & Close</Link></button>
