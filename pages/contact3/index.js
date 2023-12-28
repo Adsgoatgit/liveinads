@@ -55,7 +55,7 @@ export default function Contact3(){
     </div>
     <div className='contactmain'>
         <h5 className='contacthead'>Brief</h5>
-        <h2 className='contactmainhead'>Anything Else you'd like to add?</h2>
+        <h2 className='contactmainhead'>Anything Else you d like to add?</h2>
         <div>
             <div>
             
