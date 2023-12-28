@@ -59,7 +59,7 @@ export default function Contact2(){
     </div>
     <div className='contactmain'>
         <h5 className='contacthead'>Budget</h5>
-        <h2 className='contactmainhead'>What<sup>'</sup>s your budget range for this UX & Web Design project?</h2>
+        <h2 className='contactmainhead'>What’s your budget range for this UX & Web Design project?</h2>
         <div>
             <div>
             <div className='radiobuttondiv1'>
