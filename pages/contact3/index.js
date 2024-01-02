@@ -6,21 +6,44 @@ import Navbar from 'react-bootstrap/Navbar';
 import Image from 'next/image';
 import React,{useState} from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Contact3(){
+  const router=useRouter()
+  const searchParams = useSearchParams()
+ 
+  const search = searchParams.get('lastValue')
+  // console.log(search)
+  const search1 = searchParams.get('secondValue')
+  // console.log(search1)
+  const search2 = searchParams.get('thirdValue')
+  // console.log(search2)
+
     const [clicked, setClicked] = useState(false);
     const[inputValue,setinputValue]=useState();
 
-    const handleTextClick = () => {
-      setClicked(true);
-    };
+    const backclick=()=>{
+      router.push(`/contact2?lastValue=${search}&secondValue=${search1}`)
+    }
+
+
+    
     const navigateToAnotherPage = () => {
-      if (inputValue!=="") {
+      
+      if ((!inputValue)) {
+        // console.log(inputValue)
         
-        console.log(inputValue);
-        window.location.href = '/contact4';
+        alert("Enter some Description.");
+        return;
+        // window.location.href = '/contact4';
+      
       } else {
-        alert("Select a field before navigating.");
+        router.push(`/contact4?lastValue=${search}&secondValue=${search1}&thirdValue=${search2}&fourthValue=${inputValue}`)
+
+        console.log(inputValue)
+        // console.log(inputValue);
+      
       }
     };
     return(
@@ -68,7 +91,7 @@ export default function Contact3(){
         </div>
     </div>
     <div className='contactbuttondiv1'>
-        <h3><Link href={"/contact2"}  className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</Link></h3>
+        <button onClick={backclick} className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</button>
         <button className='contactbutton' onClick={navigateToAnotherPage}>Continue  <Image src="/arrow.png" height={20} width={20} alt='image'/></button>
     </div>
     <div className='footer12'>

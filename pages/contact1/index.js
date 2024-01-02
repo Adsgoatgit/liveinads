@@ -8,16 +8,24 @@ import React,{useReducer, useState} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation'
 
 export default function Contact1(){
-  var router = useRouter();
-  
-  // const router = typeof window !== 'undefined' ? useRouter() : null;
+  // var router = useRouter();
+  const searchParams = useSearchParams()
+ 
+  const search = searchParams.get('lastValue')
+  console.log(search)
+ 
+  const router = typeof window !== 'undefined' ? useRouter() : null;
   // rest of the component code
-
   // console.log(router)
     const [clicked, setClicked] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const backclick=()=>{
+      router.push(`/contact`)
+    }
 
     const handleTextClick = (value) => {
       setClicked(true);
@@ -32,8 +40,8 @@ export default function Contact1(){
     const navigateToAnotherPage = () => {
       if (selectedOptions.length > 0) {
         const lastSelectedValue = selectedOptions[selectedOptions.length - 1];
-        console.log(lastSelectedValue);
-        window.location.href = '/contact2';
+        // console.log(lastSelectedValue);
+        router.push(`/contact2?lastValue=${search}&secondValue=${lastSelectedValue}`)
       } else {
         alert("Select a field before navigating.");
       }
@@ -124,7 +132,7 @@ export default function Contact1(){
         </div>
     </div>
     <div className='contactbuttondiv1'>
-        <h3><Link href={"/contact"}  className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</Link></h3>
+       <button className='backbutton' onClick={backclick}><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</button>
         <button className='contactbutton' onClick={navigateToAnotherPage}>Continue  <Image src="/arrow.png" height={20} width={20} alt='image'/></button>
     </div>
     <div className='footer12'>

@@ -6,9 +6,23 @@ import Navbar from 'react-bootstrap/Navbar';
 import Image from 'next/image';
 import React,{useState} from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Contact2(){
+  const router=useRouter()
+  const searchParams = useSearchParams()
+ 
+  const search = searchParams.get('lastValue')
+  console.log(search)
+  const search1 = searchParams.get('secondValue')
+  console.log(search1)
+  
     const [clicked, setClicked] = useState(false);
+
+    const backclick=()=>{
+      router.push(`/contact1?lastValue=${search}`)
+    }
 
     
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -22,7 +36,8 @@ export default function Contact2(){
       if (selectedOptions.length > 0) {
         const lastSelectedValue = selectedOptions[selectedOptions.length - 1];
         console.log(lastSelectedValue);
-        window.location.href = '/contact3';
+        // window.location.href = '/contact3';
+        router.push(`/contact3?lastValue=${search}&secondValue=${search1}&thirdValue=${lastSelectedValue}`)
       } else {
         alert("Select a field before navigating.");
       }
@@ -95,7 +110,7 @@ export default function Contact2(){
         </div>
     </div>
     <div className='contactbuttondiv1'>
-        <h3><Link href={"/contact1"}  className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</Link></h3>
+        <button onClick={backclick}  className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</button>
         <button className='contactbutton' onClick={navigateToAnotherPage}>Continue  <Image src="/arrow.png" height={20} width={20} alt='image'/></button>
     </div>
     <div className='footer12'>

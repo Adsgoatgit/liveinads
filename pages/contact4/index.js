@@ -8,15 +8,16 @@ import React,{useState} from 'react';
 import Link from 'next/link';
 import Modal from 'react-modal';
 import moment from "moment-timezone";
-// import Conatct from '../contact/page';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 
-// Style the modal content as needed
+
 const modalStyles = {
   content: {
     width: '50%',
     margin: 'auto',
-    // marginTop:"1000px",
     padding: '20px',
   },
 };
@@ -24,23 +25,23 @@ const modalStyles = {
 const today =moment()
 
 
-export default function Contact4(props){
-  // console.log("heyyy",props.lastSelectedValue)
+export default function Contact4(){
+  
 
-  const { lastSelectedValue } = props;
-  // console.log(lastSelectedValue)
+  const router=useRouter()
 
-    const [clicked, setClicked] = useState(false);
- 
 
-    
-
-    // const handleTextClick = () => {
-    //   setClicked(true);
       
-
-    // };
-    
+    const searchParams = useSearchParams()
+ 
+    const search = searchParams.get('lastValue')
+    // console.log(search)
+    const search1 = searchParams.get('secondValue')
+    // console.log(search1)
+    const search2 = searchParams.get('thirdValue')
+    // console.log(search2)
+    const search3=searchParams.get('fourthValue')
+    // console.log(search3)
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const[nameValue,setnameValue]=useState();
@@ -52,10 +53,59 @@ export default function Contact4(props){
     const[postData,setpostData]=useState()
 
 
-    
- 
+
+  const getCurrentDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); 
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+
+    if (selectedDate < getCurrentDate()) {
+      
+      alert('Please select a date from today onward.');
+    } else {
+      setdateValue(selectedDate);
+    }
+  };
+
+
     const closeModal = async () => {
       setModalIsOpen(false);
+      try {
+        const response = await fetch('/api/sendEmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ContactOn: search,
+            Project: search1,
+            Budget: search2,
+            Description: search3,
+            name: nameValue,
+            email: emailValue,
+            Date: dateValue,
+            Discription: discriptionValue,
+            Company: companyValue,
+          }),
+        });
+    
+        const data = await response.json();
+        console.log(data)
+    
+        if (data.success) {
+          console.log('Email sent successfully');
+        } else {
+          console.error('Error sending email:', data.error);
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
     
       try {
         if (!postData) {
@@ -82,7 +132,7 @@ export default function Contact4(props){
         }
         // console.log(result);
     
-        // Clear input fields after successful submission
+      
         setnameValue("");
         setemailValue("");
         setdateValue("");
@@ -95,10 +145,18 @@ export default function Contact4(props){
         console.error('Error fetching data:', error.message);
       }
     };
+    const backclick=()=>{
+      router.push(`/contact3?lastValue=${search}&secondValue=${search1}&thirdValue=${search2}`)
+    }
 
     
     const openModal = async () => {
+     
       if (
+        !search||
+        !search1||
+        !search2||
+        !search3||
         !nameValue ||
         !emailValue ||
         !dateValue ||
@@ -110,9 +168,8 @@ export default function Contact4(props){
         return; 
       }
     
-      const isValidName = /^[A-Za-z\s.]+$/.test(nameValue); // Check if nameValue contains only alphabetic characters
-      const isValidNumber = /^\d{10}$/.test(numberValue); // Check if numberValue is a string with exactly 10 numeric characters
-      // const isValidDate = moment(dateValue, "DD-MM-YYYY").isAfter(today);
+      const isValidName = /^[A-Za-z\s.]+$/.test(nameValue); 
+      const isValidNumber = /^\d{10}$/.test(numberValue); 
     
       if (!isValidName || !isValidNumber) {
         alert('Invalid data. Please check your inputs.');
@@ -120,6 +177,10 @@ export default function Contact4(props){
       }
     
       setpostData({
+        ContactOn:search,
+        Project:search1,
+        Budget:search2,
+        Description:search3,
         name: nameValue,
         email: emailValue,
         Date: dateValue,
@@ -134,7 +195,7 @@ export default function Contact4(props){
     
     return(
         <div>
-        {/* <Contact lastSelectedValue={props.lastSelectedValue} /> */}
+        
             <div className='navbar1'>
 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary fixed-top ">
       <Container className='navmain'>
@@ -175,7 +236,7 @@ export default function Contact4(props){
                 </div>
                 <div >
                     <h6 className='fullname'>Email Address*</h6>
-                    <input type='email' placeholder='enter your email..' className='inputname' id="" value={emailValue}
+                    <input type='email' placeholder='Enter your email...' className='inputname' id="" value={emailValue}
             onChange={(e) => setemailValue(e.target.value)}/>
                 </div>
             </div>
@@ -187,26 +248,27 @@ export default function Contact4(props){
                 </div>
                 <div >
                     <h6 className='fullname'>Company Name *</h6>
-                    <input type='text' placeholder='company name...' className='inputname' id="company" value={companyValue}
+                    <input type='text' placeholder='Company name...' className='inputname' id="company" value={companyValue}
             onChange={(e) => setcompanyValue(e.target.value)}/>
                 </div>
             </div>
             <div  className='fullinputdiv'>
                 <div className='fulldiv'>
                     <h6 className='fullname'>Description*</h6>
-                    <input type='text' placeholder='Enter your text here.....' className='inputname' id="discription" value={discriptionValue}
+                    <input type='text' placeholder='Enter your text here...' className='inputname' id="discription" value={discriptionValue}
             onChange={(e) => setdiscriptionValue(e.target.value)}/>
                 </div>
                 <div >
                     <h6 className='fullname'>Your Deadline *</h6>
                     <input type='date' placeholder='22-08-2024' className='inputname' id="date" value={dateValue}
-            onChange={(e) => setdateValue(e.target.value)}/>
+             onChange={handleDateChange}
+             min={getCurrentDate()}/>
                 </div>
             </div>
         </div>
     </div>
     <div className='contactbuttondiv1'>
-        <h3><Link href={"/contact3"}  className='backbutton' ><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</Link></h3>
+        <button  className='backbutton' onClick={backclick}><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</button>
        
       <div>
       <button className="contactbutton" onClick={openModal}>
@@ -234,7 +296,6 @@ export default function Contact4(props){
       </Modal>
       </div>
       </div>
-        {/* <button className='contactbutton'><Link className='continue' href="/contact4">Continue</Link></button> */}
     </div>
     <div className='footer12'>
     <hr/>

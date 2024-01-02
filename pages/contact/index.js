@@ -22,12 +22,38 @@ export default function Contact(){
     setClicked(true);
     setSelectedOptions([...selectedOptions, value]);
   };
+  const backclick=()=>{
+    router.push(`/`)
+  }
   
-  const navigateToAnotherPage = () => {
+  const navigateToAnotherPage = async () => {
     if (selectedOptions.length > 0) {
       const lastSelectedValue = selectedOptions[selectedOptions.length - 1];
-      console.log(lastSelectedValue);
-      window.location.href = '/contact1';
+      // console.log(lastSelectedValue);
+      // window.location.href = '/contact1';
+      router.push(`/contact1?lastValue=${lastSelectedValue}`)
+      let dataArray = [];
+
+// try {
+//   const response = await fetch('/api/contact', {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ lastSelectedValue }),
+//   });
+
+//   if (!response.ok) {
+//     throw new Error('Network response was not ok');
+//   }
+
+//   const result = await response.json();
+//   console.log(result);
+//   // Assuming you want to store the result in the array
+//   dataArray.push(result);
+// } catch (error) {
+//   console.error('Error fetching data:', error);
+// }
     } else {
       alert("Select a field before navigating.");
     }
@@ -113,7 +139,7 @@ export default function Contact(){
         </div>
     </div>
     <div className='contactbuttondiv'>
-        <h3><Link href={"/"}  className='backbutton'><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</Link></h3>
+        <button  className='backbutton' onClick={backclick}><Image src="/backarrow.png" height={15} width={20} alt='image'/>Back</button>
         <button className='contactbutton' onClick={navigateToAnotherPage}>Continue  <Image src="/arrow.png" height={20} width={20} alt='image'/></button>
     </div>
     <div className='footer1'>
