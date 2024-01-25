@@ -7,7 +7,7 @@ import Image from 'next/image';
 import React,{useReducer, useState} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 // import { useSearchParams } from 'next/navigation'
 
 export default function Contact1(){
