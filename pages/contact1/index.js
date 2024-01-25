@@ -16,8 +16,15 @@ export default function Contact1(){
  
   const search = searchParams.get('lastValue')
   console.log(search)
+
+  const router = useRouter();
+
+  // Conditionally execute logic
+  if (typeof window !== 'undefined') {
+    const router = typeof window !== 'undefined' ? useRouter() : null;
+  }
  
-  const router = typeof window !== 'undefined' ? useRouter() : null;
+  // const router = typeof window !== 'undefined' ? useRouter() : null;
   // rest of the component code
   // console.log(router)
     const [clicked, setClicked] = useState(false);
