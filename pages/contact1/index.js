@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,17 +7,17 @@ import Image from 'next/image';
 import React,{useReducer, useState} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 // import { useSearchParams } from 'next/navigation'
 
 export default function Contact1(){
-  // var router = useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams()
  
   const search = searchParams.get('lastValue')
   console.log(search)
  
-  const router = typeof window !== 'undefined' ? useRouter() : null;
+  // const router = typeof window !== 'undefined' ? useRouter() : null;
   // rest of the component code
   // console.log(router)
     const [clicked, setClicked] = useState(false);
