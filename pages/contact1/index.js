@@ -7,7 +7,7 @@ import Image from 'next/image';
 import React,{useReducer, useState} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 // import { useSearchParams } from 'next/navigation'
 
 export default function Contact1(){
@@ -16,15 +16,8 @@ export default function Contact1(){
  
   const search = searchParams.get('lastValue')
   console.log(search)
-
-  const router = useRouter();
-
-  // Conditionally execute logic
-  if (typeof window !== 'undefined') {
-    const router = typeof window !== 'undefined' ? useRouter() : null;
-  }
  
-  // const router = typeof window !== 'undefined' ? useRouter() : null;
+  const router = typeof window !== 'undefined' ? useRouter() : null;
   // rest of the component code
   // console.log(router)
     const [clicked, setClicked] = useState(false);
