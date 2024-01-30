@@ -18,7 +18,7 @@ export default function Contact1(){
   console.log(search)
  
   // const router = typeof window !== 'undefined' ? useRouter() : null;
-  // rest of the component code
+  
   // console.log(router)
     const [clicked, setClicked] = useState(false);
     const [selectedOptions, setSelectedOptions] = useState([]);
